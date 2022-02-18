@@ -1,0 +1,27 @@
+receivers:
+  otlp:
+    protocols:
+      grpc:
+        endpoint: otel:55680
+      http:
+        endpoint: otel:55681
+processors:
+  batch:
+exporters:
+  logging:
+  
+  zipkin:
+    endpoint: "http://zipkin:9411/api/v2/spans"
+    
+  jaeger:
+    endpoint: jaeger-all-in-one:14250
+    insecure: true
+extensions:
+  zpages: {}
+service:
+  extensions: [zpages]
+  pipelines:
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [zipkin, jaeger]
