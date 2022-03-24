@@ -10,3 +10,4 @@ RUN apk add bash openssl
 WORKDIR /app
 COPY --from=builder /app/_build/prod/rel/opentelemetry_demo .
 CMD bin/opentelemetry_demo start
+  
